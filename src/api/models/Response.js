@@ -1,76 +1,36 @@
 const httpStatus = require('http-status');
 
-class Response {
-    constructor (message, status, data) {
-        this.message = message;
-        this.status = status;
-        this.data = data;
-    }
+const {
+  CREATED,
+  OK,
+  NO_CONTENT,
+  CONFLICT,
+  INTERNAL_SERVER_ERROR,
+  BAD_REQUEST,
+  NOT_FOUND,
+  UNAUTHORIZED,
+  FORBIDDEN,
+  PAYMENT_REQUIRED,
+} = httpStatus;
 
-    toString () {
-        const {data, status, message} = this;
-
-        return {
-            data,
-            message,
-            status
-        };
-    }
-}
-
-class CreatedResponse extends Response {
-    constructor (message, data) {
-        super(message, httpStatus.CREATED, data);
-    }
-}
-class SuccessResponse extends Response {
-    constructor (message, data) {
-        super(message, httpStatus.OK, data);
-    }
-}
-
-class DeletedResponse extends Response {
-    constructor (message, data) {
-        super(message, httpStatus.NO_CONTENT, data);
-    }
-}
-
-class ServerErrorResponse extends Response {
-    constructor (message, data) {
-        super(message, httpStatus.INTERNAL_SERVER_ERROR, data);
-    }
-}
-
-class BadRequestResponse extends Response {
-    constructor (message, data) {
-        super(message, httpStatus.BAD_REQUEST, data);
-    }
-}
-
-class NotFoundResponse extends Response {
-    constructor (message, data) {
-        super(message, httpStatus.NOT_FOUND, data);
-    }
-}
-class UnAuthenticatedErrorResponse extends Response {
-    constructor (message, data) {
-        super(message, httpStatus[401], data);
-    }
-}
-class UnAuthorizedErrorResponse extends Response {
-    constructor (message, data) {
-        super(message, httpStatus[403], data);
-    }
-}
-
-module.exports = {
-    BadRequestResponse,
-    CreatedResponse,
-    DeletedResponse,
-    NotFoundResponse,
-    Response,
-    ServerErrorResponse,
-    SuccessResponse,
-    UnAuthenticatedErrorResponse,
-    UnAuthorizedErrorResponse
+const statusCodes = {
+  CREATED,
+  OK,
+  NO_CONTENT,
+  CONFLICT,
+  INTERNAL_SERVER_ERROR,
+  BAD_REQUEST,
+  NOT_FOUND,
+  UNAUTHORIZED,
+  FORBIDDEN,
+  PAYMENT_REQUIRED,
 };
+
+const buildResponse = (message, data) => ({
+  data,
+  message,
+});
+
+exports.buildResponse = buildResponse;
+
+exports.statusCodes = statusCodes;

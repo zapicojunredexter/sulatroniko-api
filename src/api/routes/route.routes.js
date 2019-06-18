@@ -6,7 +6,7 @@ const router = express.Router();
 
 router
     .route("/routes")
-    .get(routesController.fetchRoutes)
-    .post(routesController.addRoutes);
+    .get(routesController.fetch)
+    .post(routesController.add);
     
 module.exports = router;
