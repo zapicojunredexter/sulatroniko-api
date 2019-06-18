@@ -1,7 +1,6 @@
 const admin = require('firebase-admin');
-const collectionsService = require('../../services/collections.service');
 
-const {getRoutesCollection} = collectionsService;
+exports.getRoutesCollection = () => admin.firestore().collection('Routes');
 
 class Route {
     static async create (params) {

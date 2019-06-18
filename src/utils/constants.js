@@ -1,1 +1,0 @@
-exports.REFUND_AMOUNT = 5;
