@@ -38,13 +38,13 @@ const getVehiclesCollection = () => admin.firestore().collection(VEHICLES_COLLEC
 
 
 module.exports = {
-    getTerminalsCollection,
-    getUsersCollection,
-    getSchedulesCollection,
-    getTripsCollection,
-    getBookingsCollection,
-    getFeedbacksCollection,
-    getWalletsCollection,
-    getRoutesCollection,
-    getVehiclesCollection
-}
+  getTerminalsCollection,
+  getUsersCollection,
+  getSchedulesCollection,
+  getTripsCollection,
+  getBookingsCollection,
+  getFeedbacksCollection,
+  getWalletsCollection,
+  getRoutesCollection,
+  getVehiclesCollection,
+};

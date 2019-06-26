@@ -1,6 +1,5 @@
-exports.arrayToObject = (array, key) =>
-    array.reduce((acc, curr) => {
-        acc[curr[key]] = curr;
+exports.arrayToObject = (array, key) => array.reduce((acc, curr) => {
+  acc[curr[key]] = curr;
 
-        return acc;
-    },{});
+  return acc;
+}, {});
