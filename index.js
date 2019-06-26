@@ -12,8 +12,18 @@ const main = express();
 main.use(cors());
 const routeRoutes = require('./src/api/routes/route.routes');
 const userRoutes = require('./src/api/users/user.routes');
+const authorRoutes = require('./src/api/authors/author.routes');
+const publisherRoutes = require('./src/api/publishers/publisher.routes');
+const manuscriptRoutes = require('./src/api/manuscripts/manuscript.routes');
+const threadRoutes = require('./src/api/threads/thread.routes');
+const reviewRoutes = require('./src/api/reviews/review.routes');
 
 main.use(routeRoutes);
 main.use(userRoutes);
+main.use(authorRoutes);
+main.use(publisherRoutes);
+main.use(manuscriptRoutes);
+main.use(threadRoutes);
+main.use(reviewRoutes);
 
 exports.api = functions.https.onRequest(main);

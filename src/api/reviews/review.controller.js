@@ -1,10 +1,10 @@
 const { statusCodes, buildResponse } = require('../models/Response');
-const Model = require('./User');
+const Model = require('./Review');
 
 exports.fetchAll = async (req, res) => {
   try {
-    const resource = await Model.retrieveAll();
-    return res.status(statusCodes.OK).send(resource);
+    const users = await Model.retrieveAll();
+    return res.status(statusCodes.OK).send(users);
   } catch (error) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }
@@ -14,7 +14,6 @@ exports.fetch = async (req, res) => {
   try {
     const { params } = req;
     const resource = await Model.retrieve(params.id);
-
     if (!resource) {
       return res.send(statusCodes.NOT_FOUND);
     }
@@ -26,9 +25,9 @@ exports.fetch = async (req, res) => {
 
 exports.set = async (req, res) => {
   try {
-    const { params, body } = req;
-    const user = await Model.create(body, params.id);
-    return res.status(statusCodes.CREATED).send(user);
+    const { body } = req;
+    const resource = await Model.create(body);
+    return res.status(statusCodes.CREATED).send(resource);
   } catch (error) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }

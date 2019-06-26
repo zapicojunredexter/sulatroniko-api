@@ -1,14 +1,14 @@
 const express = require('express');
-const controller = require('./user.controller');
+const controller = require('./publisher.controller');
 
 const router = express.Router();
 
 router
-  .route('/users')
+  .route('/publishers')
   .get(controller.fetchAll);
 
 router
-  .route('/users/:id')
+  .route('/publishers/:id')
   .get(controller.fetch)
   .post(controller.set);
 

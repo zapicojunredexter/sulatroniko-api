@@ -1,14 +1,14 @@
 const express = require('express');
-const controller = require('./user.controller');
+const controller = require('./author.controller');
 
 const router = express.Router();
 
 router
-  .route('/users')
+  .route('/authors')
   .get(controller.fetchAll);
 
 router
-  .route('/users/:id')
+  .route('/authors/:id')
   .get(controller.fetch)
   .post(controller.set);
 
