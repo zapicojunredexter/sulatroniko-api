@@ -5,6 +5,10 @@ const getModelCollection = () => admin.firestore().collection('users');
 exports.getUsersCollection = getModelCollection;
 
 class Model {
+  static getCollection() {
+    return getModelCollection();
+  }
+
   static async create(params, id) {
     const toBeAdded = {
       ...params,

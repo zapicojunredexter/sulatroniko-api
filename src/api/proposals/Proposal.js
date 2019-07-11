@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 
-const getModelCollection = () => admin.firestore().collection('authors');
+const getModelCollection = () => admin.firestore().collection('proposals');
 
 exports.getUsersCollection = getModelCollection;
 
@@ -8,7 +8,7 @@ class Model {
   static async create(params, id) {
     const toBeAdded = {
       ...params,
-      // createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
       deleted: false,
     };
@@ -18,7 +18,7 @@ class Model {
     await docRef.set({
       id: docRef.id,
       ...toBeAdded,
-    }, { merge: true });
+    });
 
     const newlyAdded = {
       id: docRef.id,

@@ -8,8 +8,17 @@ router
   .get(controller.fetchAll);
 
 router
+  .route('/users/login')
+  .post(controller.login);
+
+router
+  .route('/users/register')
+  .post(controller.add);
+
+router
   .route('/users/:id')
   .get(controller.fetch)
   .post(controller.set);
+
 
 module.exports = router;

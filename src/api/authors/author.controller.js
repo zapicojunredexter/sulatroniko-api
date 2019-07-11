@@ -15,7 +15,7 @@ exports.fetch = async (req, res) => {
     const { params } = req;
     const resource = await Model.retrieve(params.id);
     if (!resource) {
-      return res.send(statusCodes.NOT_FOUND);
+      return res.status(statusCodes.NOT_FOUND).send(buildResponse('Does not exists', null));
     }
     return res.status(statusCodes.OK).send(resource);
   } catch (error) {
