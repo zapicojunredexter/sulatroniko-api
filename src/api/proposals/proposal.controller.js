@@ -1,5 +1,5 @@
 const { statusCodes, buildResponse } = require('../models/Response');
-const Model = require('./Manuscript');
+const Model = require('./Proposal');
 const Thread = require('../threads/Thread');
 
 exports.fetchAll = async (req, res) => {
@@ -29,14 +29,14 @@ exports.set = async (req, res) => {
     const { body } = req;
     const resource = await Model.create(body);
 
-    // const newThread = {
-    //   memberIds: [
-    //     body.publisher,
-    //     body.author,
-    //   ],
-    //   messages: [],
-    // };
-    // await Thread.create(newThread);
+    const newThread = {
+      memberIds: [
+        body.publisher,
+        body.author,
+      ],
+      messages: [],
+    };
+    await Thread.create(newThread);
     return res.status(statusCodes.CREATED).send(resource);
   } catch (error) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));

@@ -29,6 +29,7 @@ exports.set = async (req, res) => {
     const resource = await Model.create(body, params.id);
     return res.status(statusCodes.CREATED).send(resource);
   } catch (error) {
+    console.log('dasdas', error);
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }
 };

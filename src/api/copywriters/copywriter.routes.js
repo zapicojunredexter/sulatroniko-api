@@ -1,25 +1,21 @@
 const express = require('express');
-const controller = require('./user.controller');
+const controller = require('./copywriter.controller');
 
 const router = express.Router();
 
 router
-  .route('/users')
+  .route('/copywriters')
   .get(controller.fetchAll)
   .post(controller.add);
 
 router
-  .route('/users/login')
-  .post(controller.login);
+  .route('/copywriters/publishers/:id')
+  .get(controller.fetchByPublisher);
 
 router
-  .route('/users/register')
-  .post(controller.add);
-
-router
-  .route('/users/:id')
+  .route('/copywriters/:id')
   .get(controller.fetch)
+  .patch(controller.edit)
   .post(controller.set);
-
 
 module.exports = router;

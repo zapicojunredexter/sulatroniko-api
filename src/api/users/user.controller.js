@@ -38,6 +38,11 @@ exports.set = async (req, res) => {
 exports.add = async (req, res) => {
   try {
     const { body } = req;
+    const result = await Model.getCollection().where('username', '==', body.username).get();
+
+    if (!result.empty) {
+      return res.status(statusCodes.BAD_REQUEST).send(buildResponse('Username already in use', null));
+    }
     const user = await Model.create(body);
     return res.status(statusCodes.CREATED).send(user);
   } catch (error) {
@@ -54,6 +59,7 @@ exports.login = async (req, res) => {
       return res.status(statusCodes.NOT_FOUND).send(buildResponse('Username does not exists', null));
     }
     const value = result.docs.map(data => ({ id: data.id, ...data.data() }))[0];
+    console.log('eeeek', value, value.password, body.password);
     if (value.password !== body.password) {
       return res.status(statusCodes.UNAUTHORIZED).send(buildResponse('Wrong password', null));
     }

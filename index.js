@@ -17,6 +17,7 @@ const publisherRoutes = require('./src/api/publishers/publisher.routes');
 const manuscriptRoutes = require('./src/api/manuscripts/manuscript.routes');
 const threadRoutes = require('./src/api/threads/thread.routes');
 const reviewRoutes = require('./src/api/reviews/review.routes');
+const copyWriterRoutes = require('./src/api/copywriters/copywriter.routes');
 
 main.use(routeRoutes);
 main.use(userRoutes);
@@ -25,5 +26,6 @@ main.use(publisherRoutes);
 main.use(manuscriptRoutes);
 main.use(threadRoutes);
 main.use(reviewRoutes);
+main.use(copyWriterRoutes);
 
 exports.api = functions.https.onRequest(main);

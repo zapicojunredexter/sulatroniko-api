@@ -42,3 +42,21 @@ exports.set = async (req, res) => {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }
 };
+
+
+exports.edit = async (req, res) => {
+  try {
+    const { body, params } = req;
+    const resource = await Model.retrieve(params.id);
+    if (!resource) {
+      return res.send(statusCodes.NOT_FOUND);
+    }
+    await Model.update(params.id, body);
+    return res.status(statusCodes.OK).send({
+      ...resource,
+      ...body,
+    });
+  } catch (error) {
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
+  }
+};

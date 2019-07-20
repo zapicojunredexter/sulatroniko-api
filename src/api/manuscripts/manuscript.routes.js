@@ -10,6 +10,7 @@ router
 
 router
   .route('/manuscripts/:id')
-  .get(controller.fetch);
+  .get(controller.fetch)
+  .patch(controller.edit);
 
 module.exports = router;
