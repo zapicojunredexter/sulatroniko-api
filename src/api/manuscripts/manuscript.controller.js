@@ -1,6 +1,6 @@
 const { statusCodes, buildResponse } = require('../models/Response');
 const Model = require('./Manuscript');
-const Thread = require('../threads/Thread');
+// const Thread = require('../threads/Thread');
 
 exports.fetchAll = async (req, res) => {
   try {

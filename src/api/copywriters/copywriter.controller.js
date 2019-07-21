@@ -1,7 +1,7 @@
-const admin = require('firebase-admin');
+// const admin = require('firebase-admin');
 const { statusCodes, buildResponse } = require('../models/Response');
 const Model = require('./CopyWriter');
-const UserModel = require('../users/User');
+// const UserModel = require('../users/User');
 
 exports.fetchAll = async (req, res) => {
   try {
