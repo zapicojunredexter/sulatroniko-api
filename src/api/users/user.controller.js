@@ -1,5 +1,34 @@
+/* eslint-disable no-await-in-loop */
 const { statusCodes, buildResponse } = require('../models/Response');
 const Model = require('./User');
+const Author = require('../authors/Author');
+const Publisher = require('../publishers/Publisher');
+const CopyWriter = require('../copywriters/CopyWriter');
+
+exports.fetchMultiple = async (req, res) => {
+  try {
+    const { body: { userIds } } = req;
+    const allUsers = await Model.retrieveAll();
+    const includedUsers = allUsers.filter(user => userIds.includes(user.id));
+    const returnValue = [];
+
+    for (let i = 0; i < includedUsers.length; i += 1) {
+      const user = includedUsers[i];
+      let resource = null;
+      if (user.type === 'author') {
+        resource = await Author.retrieve(user.id);
+      } else if (user.type === 'copywriter') {
+        resource = await CopyWriter.retrieve(user.id);
+      } else if (user.type === 'publisher') {
+        resource = await Publisher.retrieve(user.id);
+      }
+      returnValue.push({ ...user, ...resource });
+    }
+    return res.status(statusCodes.OK).send(returnValue);
+  } catch (error) {
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
+  }
+};
 
 exports.fetchAll = async (req, res) => {
   try {

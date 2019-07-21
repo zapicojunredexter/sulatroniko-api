@@ -30,3 +30,35 @@
 [debug] [2019-07-20T15:49:36.807Z] Starting @google-cloud/functions-emulator
 [debug] [2019-07-20T15:49:40.453Z] Parsing function triggers
 [info] ✔  functions: api: http://localhost:5000/sulatroniko-6c3bd/us-central1/api
+[debug] [2019-07-21T06:27:26.422Z] ----------------------------------------------------------------------
+[debug] [2019-07-21T06:27:26.425Z] Command:       /usr/local/Cellar/node/7.6.0/bin/node /usr/local/bin/firebase serve
+[debug] [2019-07-21T06:27:26.425Z] CLI Version:   6.3.1
+[debug] [2019-07-21T06:27:26.425Z] Platform:      darwin
+[debug] [2019-07-21T06:27:26.425Z] Node Version:  v9.10.1
+[debug] [2019-07-21T06:27:26.425Z] Time:          Sun Jul 21 2019 14:27:26 GMT+0800 (PST)
+[debug] [2019-07-21T06:27:26.425Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-07-21T06:27:26.439Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-07-21T06:27:26.440Z] > authorizing via signed-in user
+[debug] [2019-07-21T06:27:26.440Z] [iam] checking project sulatroniko-6c3bd for permissions ["firebase.projects.get"]
+[debug] [2019-07-21T06:27:26.443Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-07-21T06:27:26.443Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-07-21T06:27:27.098Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-21T06:27:27.120Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/sulatroniko-6c3bd:testIamPermissions  
+
+[debug] [2019-07-21T06:27:28.257Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-21T06:27:28.258Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/sulatroniko-6c3bd  
+ 
+[debug] [2019-07-21T06:27:29.391Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/banana2/Desktop/sulatroniko/sulatroniko-api'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2019-07-21T06:27:30.231Z] Fetching environment
+[debug] [2019-07-21T06:27:30.234Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/332794252793:getServerAppConfig  
+ 
+[debug] [2019-07-21T06:27:31.110Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-21T06:27:31.111Z] Starting @google-cloud/functions-emulator
+[debug] [2019-07-21T06:27:32.705Z] Parsing function triggers
+[info] ✔  functions: api: http://localhost:5000/sulatroniko-6c3bd/us-central1/api

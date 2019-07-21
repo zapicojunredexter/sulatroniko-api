@@ -3,6 +3,22 @@
 const { statusCodes, buildResponse } = require('../models/Response');
 const Model = require('./Thread');
 
+exports.create = async (req, res) => {
+  try {
+    const { body } = req;
+    const resource = await Model.create({
+      messages: [],
+      ...body,
+    });
+    return res.status(statusCodes.OK).send({
+      ...body,
+      ...resource,
+    });
+  } catch (err) {
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse(err.message, err));
+  }
+};
+
 exports.addMessage = async (req, res) => {
   try {
     const { params, body } = req;
