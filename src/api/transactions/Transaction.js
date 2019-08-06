@@ -1,10 +1,14 @@
 const admin = require('firebase-admin');
 
-const getModelCollection = () => admin.firestore().collection('proposals');
+const getModelCollection = () => admin.firestore().collection('transactions');
 
 exports.getUsersCollection = getModelCollection;
 
 class Model {
+  static getCollection() {
+    return getModelCollection();
+  }
+
   static async create(params, id) {
     const toBeAdded = {
       ...params,
