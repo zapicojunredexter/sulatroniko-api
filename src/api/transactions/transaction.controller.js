@@ -50,7 +50,6 @@ exports.editProgress = async (req, res) => {
       .doc(id)
       .collection('progress')
       .doc(body.cardId);
-
     await progressDoc.update(body);
 
     return res.status(statusCodes.OK).send({

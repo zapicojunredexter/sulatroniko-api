@@ -9,11 +9,11 @@ router
   .post(controller.set);
 
 router
-  .route('/manuscripts/progress/:id')
+  .route('/transactions/progress/:id')
   .post(controller.addProgress)
   .patch(controller.editProgress);
-// router
-//   .route('/manuscripts/:id')
-//   .get(controller.fetch);
+router
+  .route('/transactions/:id')
+  .get(controller.fetch);
 
 module.exports = router;
