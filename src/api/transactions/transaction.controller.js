@@ -11,6 +11,31 @@ exports.fetchAll = async (req, res) => {
   }
 };
 
+exports.addTransaction = async (req, res) => {
+  try {
+    const { body, params: { id } } = req;
+    const resource = await Model.retrieve(id);
+    if (!resource) {
+      return res.status(statusCodes.NOT_FOUND).send({});
+    }
+    const progressDoc = Model.getCollection()
+      .doc(id)
+      .collection('progress')
+      .doc();
+    const toBeAdded = {
+      id: progressDoc.id,
+      cardId: progressDoc.id,
+      status: 'pending',
+      ...body,
+    };
+    await progressDoc.set(toBeAdded);
+
+    return res.status(statusCodes.OK).send(toBeAdded);
+  } catch (error) {
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
+  }
+};
+
 exports.addProgress = async (req, res) => {
   try {
     const { body, params: { id } } = req;
@@ -77,17 +102,21 @@ exports.fetch = async (req, res) => {
 exports.set = async (req, res) => {
   try {
     const { body } = req;
-    const resource = await Model.create(body);
+    const transaction = await Model.create(body);
 
     const newThread = {
+      transactionId: transaction.id,
       memberIds: [
-        body.publisher,
-        body.author,
+        body.publisherId,
+        body.authorId,
       ],
       messages: [],
     };
-    await Thread.create(newThread);
-    return res.status(statusCodes.CREATED).send(resource);
+    const thread = await Thread.create(newThread);
+    return res.status(statusCodes.CREATED).send({
+      transaction,
+      thread,
+    });
   } catch (error) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }
