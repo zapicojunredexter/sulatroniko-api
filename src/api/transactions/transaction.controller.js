@@ -11,6 +11,26 @@ exports.fetchAll = async (req, res) => {
   }
 };
 
+exports.assignToCopywriter = async (req, res) => {
+  try {
+    const { body, params: { id } } = req;
+
+    const resource = await Model.retrieve(id);
+    if (!resource) {
+      return res.status(statusCodes.NOT_FOUND).send({});
+    }
+
+    const updated = await Model.update(id, body);
+
+    return res.status(statusCodes.OK).send({
+      ...body,
+      updated,
+    });
+  } catch (err) {
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', err));
+  }
+};
+
 exports.addTransaction = async (req, res) => {
   try {
     const { body, params: { id } } = req;

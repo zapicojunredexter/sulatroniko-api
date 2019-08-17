@@ -6,11 +6,20 @@ const router = express.Router();
 router
   .route('/proposals')
   .get(controller.fetchAll)
+  // when author assigns his manuscript to publisher
   .post(controller.set);
+
+
+router
+  .route('/proposals/:id')
+  // when publisher assigns proposal to copywriter
+  .post(controller.assignToCopywriter);
 
 router
   .route('/transactions/progress/:id')
+  // when copywriter adds card
   .post(controller.addProgress)
+  // when copywriter edits card
   .patch(controller.editProgress);
 router
   .route('/transactions/:id')
