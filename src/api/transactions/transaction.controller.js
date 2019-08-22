@@ -106,6 +106,30 @@ exports.editProgress = async (req, res) => {
   }
 };
 
+exports.reorderProgress = async (req, res) => {
+  try {
+    const { body, params: { id } } = req;
+    const resource = await Model.retrieve(id);
+    if (!resource) {
+      return res.status(statusCodes.NOT_FOUND).send(buildResponse('Transaction does not exist'));
+    }
+    const progressDoc = Model.getCollection()
+      .doc(id)
+      .collection('progress');
+    const response = await progressDoc.get(body);
+    const results = response.docs.map(data => ({ id: data.id, ...data.data() }));
+
+    console.log('durdur', results);
+
+    return res.status(statusCodes.OK).send({
+      ...resource,
+      ...body,
+    });
+  } catch (error) {
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
+  }
+};
+
 exports.fetch = async (req, res) => {
   try {
     const { params } = req;

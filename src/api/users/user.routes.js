@@ -5,6 +5,7 @@ const router = express.Router();
 
 router
   .route('/users/multiple')
+  .get(controller.fetchAllUserTypes)
   .post(controller.fetchMultiple);
 router
   .route('/users')

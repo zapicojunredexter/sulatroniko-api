@@ -22,6 +22,10 @@ router
   // when copywriter edits card
   .patch(controller.editProgress);
 router
+  .route('/transactions/reorder/:id')
+  // when copywriter edits card
+  .patch(controller.reorderProgress);
+router
   .route('/transactions/:id')
   .get(controller.fetch);
 

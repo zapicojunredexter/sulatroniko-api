@@ -22,7 +22,7 @@ class Model {
     await docRef.set({
       id: docRef.id,
       ...toBeAdded,
-    });
+    }, { merge: true });
 
     const newlyAdded = {
       id: docRef.id,
