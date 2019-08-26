@@ -1,11 +1,31 @@
 const { statusCodes, buildResponse } = require('../models/Response');
 const Model = require('./Transaction');
 const Thread = require('../threads/Thread');
+const Copywriter = require('../copywriters/CopyWriter');
+const Manuscript = require('../manuscripts/Manuscript');
+const { arrayToObject } = require('../../utils/array.object.util');
 
 exports.fetchAll = async (req, res) => {
   try {
-    const users = await Model.retrieveAll();
-    return res.status(statusCodes.OK).send(users);
+    // const transactions = await Model.retrieveAll();
+    // const manuscripts = await Manuscript.retrieveAll();
+    const [transactions, manuscripts, copywriters] = await Promise.all([
+      await Model.retrieveAll(),
+      await Manuscript.retrieveAll(),
+      await Copywriter.retrieveAll(),
+    ]);
+    const manuscriptsObj = arrayToObject(manuscripts, 'id');
+    const copywritersObj = arrayToObject(copywriters, 'id');
+    const retVal = transactions.map((transaction) => {
+      const manuscript = manuscriptsObj[transaction.manuscriptId];
+      const copywriter = copywritersObj[transaction.copywriterId];
+      return {
+        ...transaction,
+        manuscript,
+        copywriter,
+      };
+    });
+    return res.status(statusCodes.OK).send(retVal);
   } catch (error) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }
@@ -106,6 +126,26 @@ exports.editProgress = async (req, res) => {
   }
 };
 
+exports.approveTransaction = async (req, res) => {
+  try {
+    const { body, params: { id } } = req;
+    const resource = await Model.retrieve(id);
+    if (!resource) {
+      return res.status(statusCodes.NOT_FOUND).send(buildResponse('Transaction does not exist'));
+    }
+    const newFields = {
+      status: 'approved',
+    };
+    await Model.update(id, newFields);
+    return res.status(statusCodes.OK).send({
+      ...resource,
+      ...body,
+    });
+  } catch (error) {
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
+  }
+};
+
 exports.reorderProgress = async (req, res) => {
   try {
     const { body, params: { id } } = req;
@@ -137,7 +177,29 @@ exports.fetch = async (req, res) => {
     if (!resource) {
       return res.status(statusCodes.NOT_FOUND).send();
     }
-    return res.status(statusCodes.OK).send(resource);
+    const manuscript = await Manuscript.retrieve(resource.manuscriptId);
+    const retVal = {
+      ...resource,
+      manuscript,
+    };
+    return res.status(statusCodes.OK).send(retVal);
+  } catch (error) {
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
+  }
+};
+
+exports.edit = async (req, res) => {
+  try {
+    const { params, body } = req;
+    const resource = await Model.retrieve(params.id);
+    if (!resource) {
+      return res.status(statusCodes.NOT_FOUND).send();
+    }
+    await Model.update(params.id, body);
+    return res.status(statusCodes.OK).send({
+      ...resource,
+      ...body,
+    });
   } catch (error) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }

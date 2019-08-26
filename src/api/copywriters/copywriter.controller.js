@@ -1,12 +1,21 @@
 // const admin = require('firebase-admin');
 const { statusCodes, buildResponse } = require('../models/Response');
+const { arrayToObject } = require('../../utils/array.object.util');
 const Model = require('./CopyWriter');
-// const UserModel = require('../users/User');
+const Users = require('../users/User');
 
 exports.fetchAll = async (req, res) => {
   try {
-    const users = await Model.retrieveAll();
-    return res.status(statusCodes.OK).send(users);
+    const [copywriters, usersArr] = await Promise.all([
+      await Model.retrieveAll(),
+      await Users.retrieveAll(),
+    ]);
+    const users = arrayToObject(usersArr, 'id');
+    const retVal = copywriters.map(copywriter => ({
+      ...copywriter,
+      ...users[copywriter.id],
+    }));
+    return res.status(statusCodes.OK).send(retVal);
   } catch (error) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }

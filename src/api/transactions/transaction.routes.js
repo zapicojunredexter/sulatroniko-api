@@ -21,12 +21,20 @@ router
   .post(controller.addProgress)
   // when copywriter edits card
   .patch(controller.editProgress);
+
 router
   .route('/transactions/reorder/:id')
   // when copywriter edits card
   .patch(controller.reorderProgress);
+
+
+router
+  .route('/transactions/approve/:id')
+  // when publisher approves transaction
+  .post(controller.approveTransaction);
 router
   .route('/transactions/:id')
-  .get(controller.fetch);
+  .get(controller.fetch)
+  .patch(controller.edit);
 
 module.exports = router;

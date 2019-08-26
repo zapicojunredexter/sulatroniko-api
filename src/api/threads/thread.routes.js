@@ -10,6 +10,7 @@ router
 
 router
   .route('/threads/:id')
-  .post(controller.addMessage);
+  .post(controller.addMessage)
+  .patch(controller.edit);
 
 module.exports = router;
