@@ -29,9 +29,9 @@ router
 
 
 router
-  .route('/transactions/approve/:id')
+  .route('/transactions/approve/proposal/:id')
   // when publisher approves transaction
-  .post(controller.approveTransaction);
+  .post(controller.approveProposal);
 router
   .route('/transactions/:id')
   .get(controller.fetch)

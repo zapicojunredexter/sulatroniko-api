@@ -9,7 +9,7 @@ const adminSdk = require('./src/services/admin-sdk.service');
 adminSdk.initDefaultApp();
 
 const main = express();
-main.use(cors());
+main.use(cors({ origin: true }));
 const routeRoutes = require('./src/api/routes/route.routes');
 const userRoutes = require('./src/api/users/user.routes');
 const authorRoutes = require('./src/api/authors/author.routes');

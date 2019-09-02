@@ -65,7 +65,7 @@ exports.addTransaction = async (req, res) => {
     const toBeAdded = {
       id: progressDoc.id,
       cardId: progressDoc.id,
-      status: 'pending',
+      status: 'proposal',
       ...body,
     };
     await progressDoc.set(toBeAdded);
@@ -126,7 +126,7 @@ exports.editProgress = async (req, res) => {
   }
 };
 
-exports.approveTransaction = async (req, res) => {
+exports.approveProposal = async (req, res) => {
   try {
     const { body, params: { id } } = req;
     const resource = await Model.retrieve(id);
@@ -134,7 +134,7 @@ exports.approveTransaction = async (req, res) => {
       return res.status(statusCodes.NOT_FOUND).send(buildResponse('Transaction does not exist'));
     }
     const newFields = {
-      status: 'approved',
+      status: 'proposal approved',
     };
     await Model.update(id, newFields);
     return res.status(statusCodes.OK).send({
