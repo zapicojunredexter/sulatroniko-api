@@ -1,11 +1,23 @@
 const { statusCodes, buildResponse } = require('../models/Response');
 const Model = require('./Manuscript');
-// const Thread = require('../threads/Thread');
+const { arrayToObject } = require('../../utils/array.object.util');
+const Author = require('../authors/Author');
 
 exports.fetchAll = async (req, res) => {
   try {
-    const users = await Model.retrieveAll();
-    return res.status(statusCodes.OK).send(users);
+    const [manuscriptsArr, authorsArr] = await Promise.all([
+      await Model.retrieveAll(),
+      await Author.retrieveAll(),
+    ]);
+    const authors = arrayToObject(authorsArr, 'id');
+    const retVal = manuscriptsArr.map((manuscript) => {
+      const author = authors[manuscript.authorId];
+      return {
+        ...manuscript,
+        author,
+      };
+    });
+    return res.status(statusCodes.OK).send(retVal);
   } catch (error) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }

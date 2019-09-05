@@ -3,26 +3,36 @@ const Model = require('./Transaction');
 const Thread = require('../threads/Thread');
 const Copywriter = require('../copywriters/CopyWriter');
 const Manuscript = require('../manuscripts/Manuscript');
+const Publisher = require('../publishers/Publisher');
+const Author = require('../authors/Author');
 const { arrayToObject } = require('../../utils/array.object.util');
 
 exports.fetchAll = async (req, res) => {
   try {
     // const transactions = await Model.retrieveAll();
     // const manuscripts = await Manuscript.retrieveAll();
-    const [transactions, manuscripts, copywriters] = await Promise.all([
+    const [transactions, manuscripts, copywriters, publishers, authors] = await Promise.all([
       await Model.retrieveAll(),
       await Manuscript.retrieveAll(),
       await Copywriter.retrieveAll(),
+      await Publisher.retrieveAll(),
+      await Author.retrieveAll(),
     ]);
     const manuscriptsObj = arrayToObject(manuscripts, 'id');
     const copywritersObj = arrayToObject(copywriters, 'id');
+    const publishersObj = arrayToObject(publishers, 'id');
+    const authorssObj = arrayToObject(authors, 'id');
     const retVal = transactions.map((transaction) => {
       const manuscript = manuscriptsObj[transaction.manuscriptId];
       const copywriter = copywritersObj[transaction.copywriterId];
+      const publisher = publishersObj[transaction.publisherId];
+      const author = authorssObj[transaction.authorId];
       return {
         ...transaction,
         manuscript,
         copywriter,
+        publisher,
+        author,
       };
     });
     return res.status(statusCodes.OK).send(retVal);

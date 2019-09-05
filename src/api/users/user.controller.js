@@ -5,16 +5,18 @@ const Model = require('./User');
 const Author = require('../authors/Author');
 const Publisher = require('../publishers/Publisher');
 const CopyWriter = require('../copywriters/CopyWriter');
+const Review = require('../reviews/Review');
 
 exports.fetchAllUserTypes = async (req, res) => {
   try {
     // const allUsers = await Model.retrieveAll();
     // return res.status(statusCodes.OK).send([{das: true}]);
-    const [allUsers, authorsArr, publishersArr, copywritersArr] = await Promise.all([
+    const [allUsers, authorsArr, publishersArr, copywritersArr, reviewsArr] = await Promise.all([
       await Model.retrieveAll(),
       await Author.retrieveAll(),
       await Publisher.retrieveAll(),
       await CopyWriter.retrieveAll(),
+      await Review.retrieveAll(),
     ]);
     const authors = arrayToObject(authorsArr, 'id');
     const publishers = arrayToObject(publishersArr, 'id');
@@ -31,7 +33,29 @@ exports.fetchAllUserTypes = async (req, res) => {
         returnValue.push({ ...user, type: 'Publisher', ...publishers[user.id] });
       }
     }
-    return res.status(statusCodes.OK).send(returnValue);
+
+    const reviewsWithPeople = reviewsArr.map((review) => {
+      const reviewee = publishers[review.revieweeId]
+        || authors[review.revieweeId]
+        || copywriters[review.revieweeId];
+      const reviewer = publishers[review.reviewerId]
+        || authors[review.reviewerId]
+        || copywriters[review.reviewerId];
+      return {
+        ...review,
+        reviewee,
+        reviewer,
+      };
+    });
+
+    const withReviews = returnValue.map((data) => {
+      const reviews = reviewsWithPeople.filter(review => review.revieweeId === data.id);
+      return {
+        ...data,
+        reviews,
+      };
+    });
+    return res.status(statusCodes.OK).send(withReviews);
   } catch (err) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', err));
   }
@@ -132,6 +156,40 @@ exports.login = async (req, res) => {
       return res.status(statusCodes.UNAUTHORIZED).send(buildResponse('Wrong password', null));
     }
     return res.status(statusCodes.OK).send(value);
+  } catch (error) {
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
+  }
+};
+
+exports.setNotifRead = async (req, res) => {
+  try {
+    const { params } = req;
+    const userDoc = Model.getCollection().doc(params.userId);
+    const notifDoc = userDoc.collection('notifications').doc(params.notifId);
+
+    await notifDoc.update({ isRead: true });
+
+    return res.status(statusCodes.OK).send({});
+  } catch (error) {
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
+  }
+};
+
+exports.addNotif = async (req, res) => {
+  try {
+    const { params, body } = req;
+    const userDoc = Model.getCollection().doc(params.userId);
+    const notifDoc = userDoc.collection('notifications').doc();
+
+    await notifDoc.set({
+      id: notifDoc.id,
+      ...body,
+    });
+
+    return res.status(statusCodes.OK).send({
+      ...body,
+      id: notifDoc.id,
+    });
   } catch (error) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }

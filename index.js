@@ -9,7 +9,6 @@ const adminSdk = require('./src/services/admin-sdk.service');
 adminSdk.initDefaultApp();
 
 const main = express();
-main.use(cors({ origin: true }));
 const routeRoutes = require('./src/api/routes/route.routes');
 const userRoutes = require('./src/api/users/user.routes');
 const authorRoutes = require('./src/api/authors/author.routes');
@@ -19,6 +18,8 @@ const threadRoutes = require('./src/api/threads/thread.routes');
 const reviewRoutes = require('./src/api/reviews/review.routes');
 const copyWriterRoutes = require('./src/api/copywriters/copywriter.routes');
 const transactionRoutes = require('./src/api/transactions/transaction.routes');
+
+main.use(cors({ origin: true }));
 
 main.use(routeRoutes);
 main.use(userRoutes);

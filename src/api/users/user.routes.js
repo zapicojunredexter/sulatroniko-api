@@ -21,6 +21,14 @@ router
   .post(controller.add);
 
 router
+  .route('/users/notifs/:userId/:notifId')
+  .get(controller.setNotifRead);
+
+router
+  .route('/users/notifs/:userId')
+  .post(controller.addNotif);
+
+router
   .route('/users/:id')
   .get(controller.fetch)
   .post(controller.set);
