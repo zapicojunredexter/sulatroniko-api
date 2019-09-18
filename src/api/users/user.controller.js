@@ -1,4 +1,5 @@
 /* eslint-disable no-await-in-loop */
+const nodemailer = require('nodemailer');
 const { statusCodes, buildResponse } = require('../models/Response');
 const { arrayToObject } = require('../../utils/array.object.util');
 const Model = require('./User');
@@ -185,8 +186,58 @@ exports.setNotifRead = async (req, res) => {
 
 exports.sendEmail = async (req, res) => {
   try {
-    const { params } = req;
-    return res.status(statusCodes.OK).send(params);
+    const { params: { username } } = req;
+    const collection = Model.getCollection();
+    const data = await collection.where('username', '==', username).get();
+    const basta = data.docs.map(dat => dat.data());
+    if (basta.length !== 1) {
+      throw new Error('User does not exist');
+    }
+    const user = basta[0];
+    const userId = user.id;
+
+    if (!user) {
+      throw new Error('Account not exist');
+    }
+    let details = null;
+    if (user.type === 'author') {
+      details = await Author.retrieve(userId);
+    }
+    if (user.type === 'copywriter') {
+      details = await CopyWriter.retrieve(userId);
+    }
+    if (user.type === 'publisher') {
+      details = await Publisher.retrieve(userId);
+    }
+    if (!details || !details.email) {
+      throw new Error('No email specified');
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'emorejcreates99@gmail.com',
+        pass: 'emorejlapina1223199623',
+      },
+    });
+    const dest = details.email;
+    const mailOptions = {
+      from: 'SulaTroniko <yourgmailaccount@gmail.com>', // Something like: Jane Doe <janedoe@gmail.com>
+      to: dest,
+      subject: 'Account Details retrieval', // email subject
+      html: `<p style="font-size: 16px;">Account password: ${user.password}</p>
+            <br />
+            <img src="https://image.flaticon.com/icons/png/512/26/26053.png" />
+        `,
+    };
+    // returning result
+    return transporter.sendMail(mailOptions, (erro) => {
+      if (erro) {
+        throw new Error(erro.toString());
+      }
+      return res.send({ message: `Email sent to ${details.email}` });
+    });
+    // return res.status(statusCodes.OK).send(params);
   } catch (error) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }

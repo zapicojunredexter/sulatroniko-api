@@ -26,7 +26,7 @@ router
   .get(controller.setNotifRead);
 
 router
-  .route('/users/email/:userId')
+  .route('/users/email/:username')
   .get(controller.sendEmail);
 
 router
