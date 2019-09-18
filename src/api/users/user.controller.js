@@ -18,6 +18,7 @@ exports.fetchAllUserTypes = async (req, res) => {
       await CopyWriter.retrieveAll(),
       await Review.retrieveAll(),
     ]);
+    const users = arrayToObject(allUsers, 'id');
     const authors = arrayToObject(authorsArr, 'id');
     const publishers = arrayToObject(publishersArr, 'id');
     const copywriters = arrayToObject(copywritersArr, 'id');
@@ -43,8 +44,14 @@ exports.fetchAllUserTypes = async (req, res) => {
         || copywriters[review.reviewerId];
       return {
         ...review,
-        reviewee,
-        reviewer,
+        reviewee: {
+          ...reviewee,
+          ...users[reviewee.id],
+        },
+        reviewer: {
+          ...reviewer,
+          ...users[reviewer.id],
+        },
       };
     });
 
@@ -170,6 +177,16 @@ exports.setNotifRead = async (req, res) => {
     await notifDoc.update({ isRead: true });
 
     return res.status(statusCodes.OK).send({});
+  } catch (error) {
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
+  }
+};
+
+
+exports.sendEmail = async (req, res) => {
+  try {
+    const { params } = req;
+    return res.status(statusCodes.OK).send(params);
   } catch (error) {
     return res.status(statusCodes.INTERNAL_SERVER_ERROR).send(buildResponse('server_error', error));
   }

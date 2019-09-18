@@ -7,6 +7,7 @@ router
   .route('/users/multiple')
   .get(controller.fetchAllUserTypes)
   .post(controller.fetchMultiple);
+
 router
   .route('/users')
   .get(controller.fetchAll)
@@ -23,6 +24,10 @@ router
 router
   .route('/users/notifs/:userId/:notifId')
   .get(controller.setNotifRead);
+
+router
+  .route('/users/email/:userId')
+  .get(controller.sendEmail);
 
 router
   .route('/users/notifs/:userId')
