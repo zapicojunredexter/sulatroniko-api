@@ -30,7 +30,9 @@ exports.fetchAllUserTypes = async (req, res) => {
       if (user.type === 'author') {
         returnValue.push({ ...user, type: 'Author', ...authors[user.id] });
       } else if (user.type === 'copywriter') {
-        returnValue.push({ ...user, type: 'Copywriter', ...copywriters[user.id] });
+        returnValue.push({
+          ...user, publisher: copywriters[user.id] && publishers[copywriters[user.id].publisherId], type: 'Copywriter', ...copywriters[user.id],
+        });
       } else if (user.type === 'publisher') {
         returnValue.push({ ...user, type: 'Publisher', ...publishers[user.id] });
       }
@@ -191,13 +193,13 @@ exports.sendEmail = async (req, res) => {
     const data = await collection.where('username', '==', username).get();
     const basta = data.docs.map(dat => dat.data());
     if (basta.length !== 1) {
-      throw new Error('User does not exist');
+      return res.status(statusCodes.NOT_FOUND).send(buildResponse('User does not exists', null));
     }
     const user = basta[0];
     const userId = user.id;
 
     if (!user) {
-      throw new Error('Account not exist');
+      return res.status(statusCodes.NOT_FOUND).send(buildResponse('User does not exists', null));
     }
     let details = null;
     if (user.type === 'author') {
@@ -210,7 +212,7 @@ exports.sendEmail = async (req, res) => {
       details = await Publisher.retrieve(userId);
     }
     if (!details || !details.email) {
-      throw new Error('No email specified');
+      return res.status(statusCodes.NOT_FOUND).send(buildResponse('User does not have associated email', null));
     }
 
     const transporter = nodemailer.createTransport({

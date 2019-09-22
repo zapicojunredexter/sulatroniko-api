@@ -12,8 +12,8 @@ exports.fetchAll = async (req, res) => {
     ]);
     const users = arrayToObject(usersArr, 'id');
     const retVal = copywriters.map(copywriter => ({
-      ...copywriter,
       ...users[copywriter.id],
+      ...copywriter,
     }));
     return res.status(statusCodes.OK).send(retVal);
   } catch (error) {
