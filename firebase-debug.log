@@ -1,64 +1,64 @@
-[debug] [2019-09-20T12:58:56.212Z] ----------------------------------------------------------------------
-[debug] [2019-09-20T12:58:56.214Z] Command:       /usr/local/Cellar/node/7.6.0/bin/node /usr/local/bin/firebase serve
-[debug] [2019-09-20T12:58:56.214Z] CLI Version:   6.3.1
-[debug] [2019-09-20T12:58:56.215Z] Platform:      darwin
-[debug] [2019-09-20T12:58:56.215Z] Node Version:  v9.10.1
-[debug] [2019-09-20T12:58:56.215Z] Time:          Fri Sep 20 2019 20:58:56 GMT+0800 (PST)
-[debug] [2019-09-20T12:58:56.215Z] ----------------------------------------------------------------------
+[debug] [2019-09-25T10:09:01.475Z] ----------------------------------------------------------------------
+[debug] [2019-09-25T10:09:01.477Z] Command:       /usr/local/Cellar/node/7.6.0/bin/node /usr/local/bin/firebase serve
+[debug] [2019-09-25T10:09:01.477Z] CLI Version:   6.3.1
+[debug] [2019-09-25T10:09:01.478Z] Platform:      darwin
+[debug] [2019-09-25T10:09:01.478Z] Node Version:  v9.10.1
+[debug] [2019-09-25T10:09:01.478Z] Time:          Wed Sep 25 2019 18:09:01 GMT+0800 (PST)
+[debug] [2019-09-25T10:09:01.478Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-09-20T12:58:56.232Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-09-20T12:58:56.232Z] > authorizing via signed-in user
-[debug] [2019-09-20T12:58:56.232Z] [iam] checking project sulatroniko-6c3bd for permissions ["firebase.projects.get"]
-[debug] [2019-09-20T12:58:56.234Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2019-09-20T12:58:56.234Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+[debug] [2019-09-25T10:09:01.491Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-09-25T10:09:01.492Z] > authorizing via signed-in user
+[debug] [2019-09-25T10:09:01.492Z] [iam] checking project sulatroniko-6c3bd for permissions ["firebase.projects.get"]
+[debug] [2019-09-25T10:09:01.493Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-09-25T10:09:01.494Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
  <request body omitted>
-[debug] [2019-09-20T12:58:56.653Z] <<< HTTP RESPONSE 200
-[debug] [2019-09-20T12:58:56.675Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/sulatroniko-6c3bd:testIamPermissions  
+[debug] [2019-09-25T10:09:02.052Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-25T10:09:02.089Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/sulatroniko-6c3bd:testIamPermissions  
 
-[debug] [2019-09-20T12:58:58.028Z] <<< HTTP RESPONSE 200
-[debug] [2019-09-20T12:58:58.030Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/sulatroniko-6c3bd  
+[debug] [2019-09-25T10:09:03.360Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-25T10:09:03.362Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/sulatroniko-6c3bd  
  
-[debug] [2019-09-20T12:58:59.257Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-25T10:09:04.613Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/Users/banana2/Desktop/sulatroniko/sulatroniko-api'...
 [info] 
 [info] i  functions: Preparing to emulate functions.
-[debug] [2019-09-20T12:58:59.983Z] Fetching environment
-[debug] [2019-09-20T12:58:59.985Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/332794252793:getServerAppConfig  
+[debug] [2019-09-25T10:09:05.550Z] Fetching environment
+[debug] [2019-09-25T10:09:05.554Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/332794252793:getServerAppConfig  
  
-[debug] [2019-09-20T12:59:00.920Z] <<< HTTP RESPONSE 200
-[debug] [2019-09-20T12:59:00.921Z] Starting @google-cloud/functions-emulator
-[debug] [2019-09-20T12:59:02.497Z] Parsing function triggers
+[debug] [2019-09-25T10:09:06.347Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-25T10:09:06.348Z] Starting @google-cloud/functions-emulator
+[debug] [2019-09-25T10:09:08.456Z] Parsing function triggers
 [info] ✔  functions: api: http://localhost:5000/sulatroniko-6c3bd/us-central1/api
-[debug] [2019-09-22T02:49:43.263Z] ----------------------------------------------------------------------
-[debug] [2019-09-22T02:49:43.265Z] Command:       /usr/local/Cellar/node/7.6.0/bin/node /usr/local/bin/firebase serve
-[debug] [2019-09-22T02:49:43.266Z] CLI Version:   6.3.1
-[debug] [2019-09-22T02:49:43.266Z] Platform:      darwin
-[debug] [2019-09-22T02:49:43.266Z] Node Version:  v9.10.1
-[debug] [2019-09-22T02:49:43.266Z] Time:          Sun Sep 22 2019 10:49:43 GMT+0800 (PST)
-[debug] [2019-09-22T02:49:43.266Z] ----------------------------------------------------------------------
+[debug] [2019-09-25T12:33:19.809Z] ----------------------------------------------------------------------
+[debug] [2019-09-25T12:33:19.811Z] Command:       /usr/local/Cellar/node/7.6.0/bin/node /usr/local/bin/firebase serve
+[debug] [2019-09-25T12:33:19.812Z] CLI Version:   6.3.1
+[debug] [2019-09-25T12:33:19.812Z] Platform:      darwin
+[debug] [2019-09-25T12:33:19.812Z] Node Version:  v9.10.1
+[debug] [2019-09-25T12:33:19.812Z] Time:          Wed Sep 25 2019 20:33:19 GMT+0800 (PST)
+[debug] [2019-09-25T12:33:19.812Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-09-22T02:49:43.282Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-09-22T02:49:43.282Z] > authorizing via signed-in user
-[debug] [2019-09-22T02:49:43.282Z] [iam] checking project sulatroniko-6c3bd for permissions ["firebase.projects.get"]
-[debug] [2019-09-22T02:49:43.284Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2019-09-22T02:49:43.284Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+[debug] [2019-09-25T12:33:19.824Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-09-25T12:33:19.824Z] > authorizing via signed-in user
+[debug] [2019-09-25T12:33:19.824Z] [iam] checking project sulatroniko-6c3bd for permissions ["firebase.projects.get"]
+[debug] [2019-09-25T12:33:19.826Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-09-25T12:33:19.826Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
  <request body omitted>
-[debug] [2019-09-22T02:49:43.566Z] <<< HTTP RESPONSE 200
-[debug] [2019-09-22T02:49:43.583Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/sulatroniko-6c3bd:testIamPermissions  
+[debug] [2019-09-25T12:33:20.233Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-25T12:33:20.458Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/sulatroniko-6c3bd:testIamPermissions  
 
-[debug] [2019-09-22T02:49:44.770Z] <<< HTTP RESPONSE 200
-[debug] [2019-09-22T02:49:44.772Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/sulatroniko-6c3bd  
+[debug] [2019-09-25T12:33:21.623Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-25T12:33:21.624Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/sulatroniko-6c3bd  
  
-[debug] [2019-09-22T02:49:45.861Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-25T12:33:22.712Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/Users/banana2/Desktop/sulatroniko/sulatroniko-api'...
 [info] 
 [info] i  functions: Preparing to emulate functions.
-[debug] [2019-09-22T02:49:46.581Z] Fetching environment
-[debug] [2019-09-22T02:49:46.583Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/332794252793:getServerAppConfig  
+[debug] [2019-09-25T12:33:23.740Z] Fetching environment
+[debug] [2019-09-25T12:33:23.742Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/332794252793:getServerAppConfig  
  
-[debug] [2019-09-22T02:49:47.307Z] <<< HTTP RESPONSE 200
-[debug] [2019-09-22T02:49:47.308Z] Starting @google-cloud/functions-emulator
-[debug] [2019-09-22T02:49:48.876Z] Parsing function triggers
+[debug] [2019-09-25T12:33:24.530Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-25T12:33:24.531Z] Starting @google-cloud/functions-emulator
+[debug] [2019-09-25T12:33:26.623Z] Parsing function triggers
 [info] ✔  functions: api: http://localhost:5000/sulatroniko-6c3bd/us-central1/api

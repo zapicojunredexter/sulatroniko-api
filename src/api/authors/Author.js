@@ -7,10 +7,10 @@ exports.getUsersCollection = getModelCollection;
 class Model {
   static async create(params, id) {
     const toBeAdded = {
-      ...params,
       // createdAt: admin.firestore.FieldValue.serverTimestamp(),
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
       deleted: false,
+      ...params,
     };
 
     const docRef = id ? getModelCollection().doc(id) : getModelCollection().doc();
